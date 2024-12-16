@@ -28,8 +28,8 @@ public class CheckoutController {
         return checkoutService.showCart();
     }
 
-    @GetMapping("/total_price")
-    public double checkout(){
-        return checkoutService.checkout();
+    @GetMapping("/get_receipt")
+    public String getReceipt(){
+        return checkoutService.getReceipt();
     }
 }

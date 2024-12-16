@@ -12,6 +12,9 @@ public class ItemRequest {
     @Positive(message = "Price must be greater than 0")
     private double normalPrice;
 
+    @Positive(message = "Required quantity must be greater than 0")
     private Integer requiredQuantity;
+
+    @Positive(message = "Special price must be greater than 0")
     private Double specialPrice;
 }

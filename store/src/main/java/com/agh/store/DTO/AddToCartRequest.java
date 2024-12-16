@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 public class AddToCartRequest {
     @NotNull(message = "ItemId should not be empty!")
-    private long itemId;
+    private Long itemId;
 
     @Positive(message = "Quantity must be greater than 0")
-    private int quantity;
+    private Integer quantity;
 
 }

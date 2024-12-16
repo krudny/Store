@@ -28,17 +28,27 @@ public class CheckoutService {
         return cart.getCart();
     }
 
-    public double checkout() {
+
+    public String getReceipt() {
+        StringBuilder receipt = new StringBuilder();
         double totalPrice = 0;
+
         for (Item item : cart.getCart().keySet()) {
             Optional<Integer> requiredQuantity = Optional.ofNullable(item.getRequiredQuantity());
+            double price;
 
             if (requiredQuantity.isPresent() && item.getRequiredQuantity() <= cart.getCart().get(item)) {
-                totalPrice += item.getSpecialPrice() * cart.getCart().get(item);
+                price = item.getSpecialPrice() * cart.getCart().get(item);
+                receipt.append(item.getName()).append(" x ").append(cart.getCart().get(item)).append(" = ").append(price).append("PLN\n");
             } else {
-                totalPrice += item.getNormalPrice() * cart.getCart().get(item);
+                price = item.getNormalPrice() * cart.getCart().get(item);
+                receipt.append(item.getName()).append(" x ").append(cart.getCart().get(item)).append(" = ").append(price).append("PLN\n");
             }
+
+            totalPrice += price;
+
         }
-        return totalPrice;
+        receipt.append("Total price: ").append(totalPrice).append("PLN");
+        return receipt.toString();
     }
 }
