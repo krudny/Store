@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,5 +26,19 @@ public class CheckoutService {
 
     public HashMap<Item, Integer> showCart() {
         return cart.getCart();
+    }
+
+    public double checkout() {
+        double totalPrice = 0;
+        for (Item item : cart.getCart().keySet()) {
+            Optional<Integer> requiredQuantity = Optional.ofNullable(item.getRequiredQuantity());
+
+            if (requiredQuantity.isPresent() && item.getRequiredQuantity() <= cart.getCart().get(item)) {
+                totalPrice += item.getSpecialPrice() * cart.getCart().get(item);
+            } else {
+                totalPrice += item.getNormalPrice() * cart.getCart().get(item);
+            }
+        }
+        return totalPrice;
     }
 }
