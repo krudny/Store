@@ -16,9 +16,9 @@ public class Item {
 
     private long itemId;
     private String name;
-    private float normalPrice;
+    private double normalPrice;
     private Integer requiredQuantity;
-    private Float specialPrice;
+    private Double specialPrice;
 
     public static class ItemBuilder {
         private long itemId = ID_GENERATOR.getAndIncrement();

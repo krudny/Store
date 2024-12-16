@@ -10,8 +10,8 @@ public class ItemRequest {
     private String name;
 
     @Positive(message = "Price must be greater than 0")
-    private float normalPrice;
+    private double normalPrice;
 
     private Integer requiredQuantity;
-    private float specialPrice;
+    private Double specialPrice;
 }
