@@ -28,6 +28,20 @@ public class CheckoutService {
         return cart.getCart();
     }
 
+    public String getPrice(long id) {
+    Optional<Item> item = storeProducts.getItemById(id);
+    if (item.isPresent()) {
+        Optional<Integer> requiredQuantity = Optional.ofNullable(item.get().getRequiredQuantity());
+        if (requiredQuantity.isPresent()) {
+            return "Normal price " + item.get().getNormalPrice() + "PLN, special price " + item.get().getSpecialPrice() + "PLN with required quantity of " + item.get().getRequiredQuantity();
+        } else {
+            return "Normal price " + item.get().getNormalPrice() + "PLN";
+        }
+    } else {
+        throw new IllegalArgumentException("Item with id '" + id + "' does not exist.");
+    }
+}
+
 
     public String getReceipt() {
         StringBuilder receipt = new StringBuilder();

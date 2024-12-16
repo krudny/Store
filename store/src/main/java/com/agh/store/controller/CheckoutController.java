@@ -28,6 +28,11 @@ public class CheckoutController {
         return checkoutService.showCart();
     }
 
+    @GetMapping("/get_price/{id}")
+    public String getPrice(@PathVariable long id){
+        return checkoutService.getPrice(id);
+    }
+
     @GetMapping("/get_receipt")
     public String getReceipt(){
         return checkoutService.getReceipt();
