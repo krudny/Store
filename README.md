@@ -1,84 +1,88 @@
+# Store
+
+## Overview
+
+**Store** is a example project in which I have implemented simple REST API simulating market checkout component. 
 
 
-# Endpointy
+## Technologies
 
-## Store 
+- Backend - Java 23, SpringBoot 3.4.0
+- Tools - SwaggerUI, Gradle, Postman
+- Development Enviroment - IntelliJ IDEA, Visual Studio Code
 
-Scieżka: `localhost:8080/api/store/`
+## Setup
 
-### 1. **Sprawdzenie wszystkich produktów**
+Clone repository
 
-#### **GET** `/`
-
-
-### 2. **Dodanie produktu**
-#### **POST** `/add`
-
-
-#### **Body żądania:**
-Wymagane jest przesłanie obiektu JSON w poniższym formacie:
-
-```json
-{
-    "name": "Product", 
-    "normalPrice": 14,
-    "requiredQuantity": 3,
-    "specialPrice": 10
-}
+```
+git clone https://github.com/krudny/Store.git
 ```
 
-Pola `requiredQuantity` i `specialPrice` są opcjonalne. W przypadku ich braku zostaną ustawione na `null`.
+Enter project directory
 
-## Checkout
+```
+cd Store/store
+```
 
-Ścieżka: `localhost:8080/api/checkout/`
+Start application 
 
-### 1. **Dodanie do koszyka**
+```
+gradlew run
+```
 
-#### **POST** `/add_to_cart`
+`Note:` It is highly recommended to use `Postman` or other API testing tool to make requests. 
 
-#### **Body żądania:**
-Wymagane jest przesłanie obiektu JSON w poniższym formacie:
+## SwaggerUI
+
+All Api endpoints are documented in SwaggerUI. To access it, go to `http://localhost:8080/swagger-ui.html` in your browser.
+
+![SwaggerUI](image.png)
+
+## Configurator
+
+In order to make the application more flexible, I have implemented a simple configurator which adds few items and discounts to project every time it starts. 
+You can find it in `configurator` package. It was not mentioned in requirements to use database, but it would be a good idea to store items and discounts in database and load them from there. 
+
+## Sample usage
+
+### Check possible items
+   
+`GET http://localhost:8080/api/store`
+
+### Add items to cart
+
+`POST localhost:8080/api/checkout/add_to_cart`
 
 ```json
 {
-    "itemId": 5,
+    "itemId": 1,
+    "quantity": 2
+}
+
+{
+    "itemId": 2,
+    "quantity": 5
+}
+
+{
+    "itemId": 3,
     "quantity": 10
 }
 ```
 
-### 2. **Wyświetlenie koszyka**
+### Generate receipt
+   
+`GET http://localhost:8080/api/checkout/get_receipt`
 
-#### **GET** `/show_cart`
-
-### 3. **Pobranie ceny produktu**
-
-#### **GET** `/get_price/{id}`
-
-### 4. **Pobranie paragonu**
-
-#### **GET** `/get_receipt`
-
-
-## Discounts
-
-Ścieżka: `localhost:8080/api/discounts/`
-
-### 1. **Dodanie zniżki**
-
-#### **POST** `/add`
-
-#### **Body żądania:**
-Wymagane jest przesłanie obiektu JSON w poniższym formacie:
-
-```json
-{
-    "item1Id": 1,
-    "item2Id": 2,
-    "value": 5
-}
+### Sample output
+```
+Truck x 2 = 30.0PLN <br>
+Toy x 10 = 100.0PLN <br>
+Teddy x 5 = 22.5PLN <br>
+Discount from pair items: 0.0PLN <br>
+Total price: 152.5PLN
 ```
 
-### 2. **Wyświetlenie wszystkich zniżek**
-
-#### **GET** `/show_all`
+`Note`: It is possible to add more products and discounts using endpoints documented in `SwaggerUI`.
+   

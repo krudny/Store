@@ -1,6 +1,6 @@
 package com.agh.store.service;
 
-import com.agh.store.DTO.ItemRequest;
+import com.agh.store.DTO.ItemDTO;
 import com.agh.store.model.Item;
 import com.agh.store.model.StoreProducts;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.List;
 public class StoreService {
     private final StoreProducts storeProducts;
 
-    public void createProduct(ItemRequest request) {
+    public void createProduct(ItemDTO request) {
         if ((request.getRequiredQuantity() != null) ^ (request.getSpecialPrice() != null)) {
             throw new IllegalArgumentException("Either required quantity or special price is missing, but not both.");
         }

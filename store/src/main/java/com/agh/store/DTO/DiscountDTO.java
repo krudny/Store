@@ -1,11 +1,13 @@
 package com.agh.store.DTO;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 
 @Getter
-public class DiscountRequest {
+@Schema(hidden = true)
+public class DiscountDTO {
     @NotNull(message = "Item1Id cannot be empty")
     private Long item1Id;
     @NotNull(message = "Item2Id cannot be empty")

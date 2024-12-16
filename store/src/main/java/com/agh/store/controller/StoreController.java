@@ -1,6 +1,6 @@
 package com.agh.store.controller;
 
-import com.agh.store.DTO.ItemRequest;
+import com.agh.store.DTO.ItemDTO;
 import com.agh.store.model.Item;
 import com.agh.store.service.StoreService;
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ public class StoreController {
     private StoreService storeService;
 
     @PostMapping("/add")
-    public ResponseEntity<String> addProduct(@Valid @RequestBody ItemRequest request) {
+    public ResponseEntity<String> addProduct(@Valid @RequestBody ItemDTO request) {
         storeService.createProduct(request);
 
         return ResponseEntity.ok("Product added successfully. ");

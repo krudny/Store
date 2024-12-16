@@ -1,6 +1,6 @@
 package com.agh.store.controller;
 
-import com.agh.store.DTO.AddToCartRequest;
+import com.agh.store.DTO.AddToCartDTO;
 import com.agh.store.model.Item;
 import com.agh.store.service.CheckoutService;
 import jakarta.validation.Valid;
@@ -17,7 +17,7 @@ public class CheckoutController {
     private CheckoutService checkoutService;
 
     @PostMapping("/add_to_cart")
-    public ResponseEntity<String> addToCart(@Valid @RequestBody AddToCartRequest request) {
+    public ResponseEntity<String> addToCart(@Valid @RequestBody AddToCartDTO request) {
         checkoutService.addToCart(request.getItemId(), request.getQuantity());
 
         return ResponseEntity.ok("Item added to cart successfully!");

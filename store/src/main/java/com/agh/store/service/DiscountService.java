@@ -1,6 +1,6 @@
 package com.agh.store.service;
 
-import com.agh.store.DTO.DiscountRequest;
+import com.agh.store.DTO.DiscountDTO;
 import com.agh.store.model.DiscountKey;
 import com.agh.store.model.DiscountRelations;
 import com.agh.store.model.Item;
@@ -9,7 +9,6 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -19,7 +18,7 @@ public class DiscountService {
     private final DiscountRelations discountRelations;
     private final StoreProducts storeProducts;
 
-    public void addDiscount(@Valid DiscountRequest request) {
+    public void addDiscount(@Valid DiscountDTO request) {
         Optional<Item> item1 =  storeProducts.getItemById(request.getItem1Id());
         Optional<Item> item2 =  storeProducts.getItemById(request.getItem2Id());
 
