@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Component
@@ -18,5 +19,13 @@ public class StoreProducts {
 
     public void removeItem(long itemId) {
         this.items.removeIf(item -> item.getItemId() == itemId);
+    }
+
+    public boolean itemExists(long itemId) {
+        return this.items.stream().anyMatch(item -> item.getItemId() == itemId);
+    }
+
+    public Optional<Item> getItemById(long itemId) {
+        return this.items.stream().filter(item -> item.getItemId() == itemId).findFirst();
     }
 }
