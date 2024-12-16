@@ -12,7 +12,7 @@ import java.util.List;
 public class StoreService {
     private final StoreProducts storeProducts;
 
-    public void addProduct(ItemRequest request) {
+    public void createProduct(ItemRequest request) {
         if ((request.getRequiredQuantity() != null) ^ (request.getSpecialPrice() != null)) {
             throw new IllegalArgumentException("Either required quantity or special price is missing, but not both.");
         }
@@ -27,7 +27,7 @@ public class StoreService {
         storeProducts.addItem(newItem);
     }
 
-    public List<Item> getProducts() {
+    public List<Item> getStoreProducts() {
         return storeProducts.getItems();
     }
 }

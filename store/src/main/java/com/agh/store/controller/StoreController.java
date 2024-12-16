@@ -19,13 +19,13 @@ public class StoreController {
 
     @PostMapping("/add")
     public ResponseEntity<String> addProduct(@Valid @RequestBody ItemRequest request) {
-        storeService.addProduct(request);
+        storeService.createProduct(request);
 
         return ResponseEntity.ok("Product added successfully. ");
     }
 
     @GetMapping("")
     public List<Item> getProducts() {
-        return storeService.getProducts();
+        return storeService.getStoreProducts();
     }
 }
