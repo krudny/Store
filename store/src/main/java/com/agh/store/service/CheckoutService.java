@@ -1,8 +1,6 @@
 package com.agh.store.service;
 
-import com.agh.store.model.Cart;
-import com.agh.store.model.Item;
-import com.agh.store.model.StoreProducts;
+import com.agh.store.model.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +12,7 @@ import java.util.Optional;
 public class CheckoutService {
     private Cart cart;
     private StoreProducts storeProducts;
+    private DiscountRelations discountRelations;
 
     public void addToCart(long itemId, int quantity) {
         Optional<Item> item = storeProducts.getItemById(itemId);
@@ -29,18 +28,33 @@ public class CheckoutService {
     }
 
     public String getPrice(long id) {
-    Optional<Item> item = storeProducts.getItemById(id);
-    if (item.isPresent()) {
-        Optional<Integer> requiredQuantity = Optional.ofNullable(item.get().getRequiredQuantity());
-        if (requiredQuantity.isPresent()) {
-            return "Normal price " + item.get().getNormalPrice() + "PLN, special price " + item.get().getSpecialPrice() + "PLN with required quantity of " + item.get().getRequiredQuantity();
+        Optional<Item> item = storeProducts.getItemById(id);
+        if (item.isPresent()) {
+            Optional<Integer> requiredQuantity = Optional.ofNullable(item.get().getRequiredQuantity());
+            if (requiredQuantity.isPresent()) {
+                return "Normal price " + item.get().getNormalPrice() + "PLN, special price " + item.get().getSpecialPrice() + "PLN with required quantity of " + item.get().getRequiredQuantity();
+            } else {
+                return "Normal price " + item.get().getNormalPrice() + "PLN";
+            }
         } else {
-            return "Normal price " + item.get().getNormalPrice() + "PLN";
+            throw new IllegalArgumentException("Item with id '" + id + "' does not exist.");
         }
-    } else {
-        throw new IllegalArgumentException("Item with id '" + id + "' does not exist.");
     }
-}
+
+    private double calculateDiscount() {
+        double discount = 0;
+        for (Item item1 : cart.getCart().keySet()) {
+            for (Item item2 : cart.getCart().keySet()) {
+                double curr_discount = 0;
+                if (discountRelations.getDiscountRelations().containsKey(new DiscountKey(item1, item2))) {
+                    curr_discount += discountRelations.getDiscountRelations().get(new DiscountKey(item1, item2));
+                    curr_discount *= cart.getCart().get(item1);
+                }
+                discount += curr_discount;
+            }
+        }
+        return discount;
+    }
 
 
     public String getReceipt() {
@@ -62,7 +76,9 @@ public class CheckoutService {
             totalPrice += price;
 
         }
-        receipt.append("Total price: ").append(totalPrice).append("PLN");
+        double discount = calculateDiscount();
+        receipt.append("Discount from pair items: ").append(discount).append("PLN\n");
+        receipt.append("Total price: ").append(totalPrice - discount).append("PLN");
         return receipt.toString();
     }
 }
