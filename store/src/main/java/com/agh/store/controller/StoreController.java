@@ -6,6 +6,7 @@ import com.agh.store.service.StoreService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +18,10 @@ public class StoreController {
     private StoreService storeService;
 
     @PostMapping("/add")
-    public void addProduct(@Valid @RequestBody ItemRequest request) {
+    public ResponseEntity<String> addProduct(@Valid @RequestBody ItemRequest request) {
         storeService.addProduct(request);
+
+        return ResponseEntity.ok("Product added successfully. ");
     }
 
     @GetMapping("")

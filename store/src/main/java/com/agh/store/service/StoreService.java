@@ -13,6 +13,10 @@ public class StoreService {
     private final StoreProducts storeProducts;
 
     public void addProduct(ItemRequest request) {
+        if ((request.getRequiredQuantity() != null) ^ (request.getSpecialPrice() != null)) {
+            throw new IllegalArgumentException("Either required quantity or special price is missing, but not both.");
+        }
+
         Item newItem = Item.builder()
                         .name(request.getName())
                         .normalPrice(request.getNormalPrice())
