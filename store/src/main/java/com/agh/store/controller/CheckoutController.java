@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 @RestController
 @RequestMapping("/api/checkout")
@@ -24,7 +25,7 @@ public class CheckoutController {
     }
 
     @GetMapping("/show_cart")
-    public HashMap<Item, Integer> showCart(){
+    public TreeMap<Item, Integer> showCart(){
         return checkoutService.showCart();
     }
 

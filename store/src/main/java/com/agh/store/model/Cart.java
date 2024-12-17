@@ -4,12 +4,14 @@ import lombok.Getter;
 import org.springframework.stereotype.Component;
 
 
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 @Component
 @Getter
 public class Cart {
-    private HashMap<Item, Integer> cart = new HashMap<>();
+    private TreeMap<Item, Integer> cart = new TreeMap<>(Comparator.comparing(Item::getName));
 
     public void addItem(Item item, int quantity) {
         if (cart.containsKey(item)) {

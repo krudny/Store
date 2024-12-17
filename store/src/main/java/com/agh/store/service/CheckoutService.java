@@ -1,11 +1,13 @@
 package com.agh.store.service;
 
 import com.agh.store.model.*;
+import com.sun.source.tree.Tree;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.TreeMap;
 
 @Service
 @AllArgsConstructor
@@ -23,7 +25,7 @@ public class CheckoutService {
         }
     }
 
-    public HashMap<Item, Integer> showCart() {
+    public TreeMap<Item, Integer> showCart() {
         return cart.getCart();
     }
 
@@ -41,7 +43,7 @@ public class CheckoutService {
         }
     }
 
-    private double calculateDiscount() {
+    public double calculatePairDiscount() {
         double discount = 0;
         for (Item item1 : cart.getCart().keySet()) {
             for (Item item2 : cart.getCart().keySet()) {
@@ -76,7 +78,7 @@ public class CheckoutService {
             totalPrice += price;
 
         }
-        double discount = calculateDiscount();
+        double discount = calculatePairDiscount();
         receipt.append("Discount from pair items: ").append(discount).append("PLN\n");
         receipt.append("Total price: ").append(totalPrice - discount).append("PLN");
         return receipt.toString();
