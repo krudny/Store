@@ -3,10 +3,12 @@ package com.agh.store.DTO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Schema(hidden = true)
 @Data
+@AllArgsConstructor
 public class AddToCartDTO {
     @NotNull(message = "ItemId should not be empty!")
     private Long itemId;

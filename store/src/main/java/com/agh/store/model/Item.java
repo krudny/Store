@@ -26,4 +26,18 @@ public class Item {
     public static class ItemBuilder {
         private long itemId = ID_GENERATOR.getAndIncrement();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Item ID: ").append(itemId).append(", ")
+                .append("Name: ").append(name).append(", ")
+                .append("Normal Price: ").append(String.format("%.2f", normalPrice)).append(" PLN");
+
+        if (requiredQuantity != null && specialPrice != null) {
+            builder.append(", Required Quantity: ").append(requiredQuantity)
+                    .append(", Special Price: ").append(String.format("%.2f", specialPrice)).append(" PLN");
+        }
+        return builder.toString();
+    }
 }
