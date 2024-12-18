@@ -77,10 +77,10 @@ You can find it in `configurator` package. It was not mentioned in requirements 
 
 ### Sample output
 ```
-Truck x 2 = 30.0PLN <br>
-Toy x 10 = 100.0PLN <br>
-Teddy x 5 = 22.5PLN <br>
-Discount from pair items: 0.0PLN <br>
+Truck x 2 = 30.0PLN 
+Toy x 10 = 100.0PLN 
+Teddy x 5 = 22.5PLN 
+Discount from pair items: 0.0PLN 
 Total price: 152.5PLN
 ```
 
