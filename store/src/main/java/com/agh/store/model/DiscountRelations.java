@@ -3,12 +3,14 @@ package com.agh.store.model;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Getter
 @Component
 public class DiscountRelations {
-    private final HashMap<DiscountKey, Double> discountRelations = new HashMap<>();
+    private final Map<DiscountKey, Double> discountRelations = new LinkedHashMap<>();
 
     public void addDiscountRelation(DiscountKey newDiscount, Double value) {
         discountRelations.put(newDiscount, value);
