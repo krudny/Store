@@ -7,7 +7,6 @@ import java.util.concurrent.atomic.AtomicLong;
 @AllArgsConstructor
 @Getter
 @Builder
-@ToString
 public class Item {
     private static final AtomicLong ID_GENERATOR = new AtomicLong(1);
 
